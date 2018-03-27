@@ -1,0 +1,27 @@
+{
+    "name": "helloworld",
+    "version": "1.0.0",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "cordova-android": "^6.2.3",
+        "cordova-plugin-android-permissions": "^1.0.0",
+        "cordova-plugin-barcodescanner": "^0.7.4",
+        "cordova-plugin-compat": "^1.2.0",
+        "cordova-plugin-whitelist": "git+https://github.com/apache/cordova-plugin-whitelist.git",
+        "cordova-plugin-x-socialsharing": "^5.3.2",
+        "es6-promise-plugin": "^4.2.2"
+    },
+    "cordova": {
+        "platforms": [
+            "android"
+        ],
+        "plugins": {
+            "cordova-plugin-barcodescanner": {},
+            "cordova-plugin-x-socialsharing": {},
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-android-permissions": {}
+        }
+    }
+}

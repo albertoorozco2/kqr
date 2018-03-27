@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>KQR Tags</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7.ios.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css">
+</head>
+
+<body>
+    <!-- 
+
+    <!- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+        <div class="content-block">
+            <img src="images/side.png" id="profilePicSide">
+            <p><span id="nameUserSide">KQR Tags</span></p>
+        </div>
+    </div>
+    <!-- Right panel with cover effect-->
+    <div class="panel panel-right panel-cover">
+        <div class="content-block">
+            <h3>My new stories</h3>
+            <p id="yourNewsSide">KQR Tags</p>
+        </div>
+    </div>
+    <!-- Views, and they are tabs-->
+    <!-- We need to set "toolbar-through" class on it to keep space for our tab bar-->
+    <div class="views tabs toolbar-through">
+        <!-- Your first view, it is also a .tab and should have "active" class to make it visible by default-->
+        <div id="view-1" class="view view-main tab active">
+            <!-- Pages-->
+            <div class="pages">
+                <!-- Page, data-page contains page name-->
+                <div data-page="index-1" class="page">
+                    <!-- Scrollable page content-->
+                    <div class="page-content">
+                        <div class="content-block-title"> </div>
+                        <div class="content-block">
+                            <img src="images/kqr.png" id="logoPicMain" style="border-radius: 0px">
+                            <img src="images/main.png" id="profilePicMain" style="display: none;">
+                            <div id="statusLogIn" class="center">
+                            </div>
+                            <form class="list" id="formLogin">
+                                <div class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">username</div>
+                                        <div class="item-input-wrap">
+                                            <input type="text" name="username" id="username" placeholder="username">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">password</div>
+                                        <div class="item-input-wrap">
+                                            <input type="password" name="password" id="password" placeholder="password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </form>
+                            <button id="loginButton" onclick="login()" style="display: inherit;" class="button button-fill">Log in </button>
+                            <button id="logoutButton" onclick="logout()" style="display: none" class="button">Log out</button>
+                            <!--                             <h2 id="nameUserMain">KQR Tags</h2> -->
+                            <!--  <p  class="center">KQR Tags log in.</p>
+                                <br><p id="quickAccess">Quick access <br><a href="#" class="open-panel">Profile </a>   and   <a href="#" data-panel="right" class="open-panel">My stories</a></p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Second view (for second wrap)-->
+        <div id="view-2" class="view tab">
+            <!-- We can make with view with navigation, let's add Top Navbar-->
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="center sliding">KQR Tag Generator</div>
+                </div>
+            </div>
+            <div class="pages navbar-through">
+                <div data-page="index-2" class="page">
+                    <div class="page-content">
+                        <div class="content-block" id="qrGeneratorContainer">
+                            <form class="list" id="my-form">
+                                <div class="item-content item-input">
+                                    <div id="errorGenerator">
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Key Name</div>
+                                        <div class="item-input-wrap">
+                                            <input type="text" name="keyName" id="keyName" placeholder="Key name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Key Location</div>
+                                        <div class="item-input-wrap">
+                                            <input type="text" name="keyLocation" id="keyLocation" placeholder="Key Location">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Key Description</div>
+                                        <div class="item-input-wrap">
+                                            <textarea name="keyDescription" id="keyDescription" placeholder=""></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <br>
+                            <div class="block block-strong row">
+                                <div></div>
+                                <div class="col"><a class="button button-fill convert-form-to-data" id="getKeyButton" href="#" onclick="getKeyNumber()">Add Key</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="qrCodeContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Tabbar-->
+        <div id="tabbarMenu" style="display: none" class="toolbar tabbar tabbar-labels">
+            <div class="toolbar-inner"><a href="#view-1" class="tab-link active"><img src="images/home.png" class="icon"><span class="tabbar-label">Home</span></a><a href="#view-2" id="adminMenu" class="tab-link"><img src="images/generator.png" class="icon"><span class="tabbar-label">Generator</span></a><a href="#" class="tab-link" onclick="kqrReader()"><img src="images/reader.png" class="icon" ><span class="tabbar-label">Reader</span></a>
+
+                </a>
+            </div>
+        </div>
+        <!--         <script type="text/javascript" src="phonegap.js"></script>
+ -->
+        <!--  md5 script -->
+        <script src="js/md5.js"></script>
+        <!-- Path to Framework7 Library JS-->
+        <script type="text/javascript" src="js/framework7.min.js"></script>
+        <!-- Path to cordova Library JS-->
+        <script type="text/javascript" src="cordova.js"></script>
+        <!-- Path to Jquery-->
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <!-- Path to your app js-->
+        <script type="text/javascript" src="js/my-app.js"></script>
+</body>
+
+</html>
