@@ -57,6 +57,7 @@ function login() {
 };
 
 
+
 function getdata() {
 
     if (usertype == "admin") {
@@ -170,24 +171,30 @@ function newQrCode() {
 function kqrReader() {
     cordova.plugins.barcodeScanner.scan(
         function(result) {
-
-
-
+        
+        if(/^\d+$/.test(result.text)){
 
             var xhr2 = new XMLHttpRequest();
             xhr2.open('POST', 'https://kqrtags.000webhostapp.com/app/index.php', true);
             xhr2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhr2.send('username=' + username + '&password=' + password + '&kid=' + String(result.text).replace(/[\n\r]/g, ''));
+            xhr2.send('username=' + username + '&password=' + password + '&kid=' + String(result.text));
+            // xhr2.send('username=' + username + '&password=' + password + '&kid=' + String(result.text).replace(/[\n\r]/g, ''));
 
             xhr2.onreadystatechange = function() {
                 if (xhr2.readyState == 4) {
 
                     var akey = JSON.parse(this.response);
-                    alert("Key Name : " + akey.name +
+                    alert("Key id : " + akey.id +
+                        "\nKey Name : " + akey.name +
                         "\nKey Location : " + akey.location +
                         "\nKey Description : " + akey.description)
                 }
             };
+        } else{
+            alert("Not KQR");
+        }
+
+
 
         },
         function(error) {
